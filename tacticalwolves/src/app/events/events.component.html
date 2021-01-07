@@ -1,0 +1,17 @@
+<form [formGroup]="EventForm" (ngSubmit)="onSubmit()">
+  <div class="form-control">
+    <label for="name"> Name </label>
+    <input id="name" type="text" name="name" formControlName="name" />
+    />
+  </div>
+  <div class="form-control">
+    <label for="location"> Location </label>
+    <input
+      name="location"
+      id="location"
+      type="text"
+      formControlName="location"
+    />
+  </div>
+  <button class="button" type="submit">Create Event</button>
+</form>
