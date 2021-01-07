@@ -1,0 +1,8 @@
+{
+  "realm": "TacticalWolves",
+  "auth-server-url": "https://84.86.167.197:8082/auth/",
+  "ssl-required": "external",
+  "resource": "TacticalWolves-App",
+  "public-client": true,
+  "confidential-port": 0
+}
