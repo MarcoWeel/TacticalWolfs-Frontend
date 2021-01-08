@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import keycloak from "../../../Keycloak";
 
-function AddLocationsPage() {
+function AddLoadoutPage() {
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
   const [submitMessage, setSubmitMessage] = useState(<div></div>);
+  let Id = keycloak.tokenParsed.sub.toString();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -30,7 +33,7 @@ function AddLocationsPage() {
     bodyFormData.append("file", image);
     axios({
       method: "post",
-      url: "http://84.86.167.197:5014/events/files",
+      url: "http://84.86.167.197:5012/loadout/files",
       data: bodyFormData,
       headers: header1,
     })
@@ -48,12 +51,13 @@ function AddLocationsPage() {
       });
     const EventLocation = {
       name: name,
-      fileLocation: imageName,
-      DateTime: null,
+      description: description,
+      fileURL: imageName,
+      userId: Id,
     };
     axios({
       method: "post",
-      url: "http://84.86.167.197:5014/events/location",
+      url: "http://84.86.167.197:5012/loadout",
       data: EventLocation,
       headers: header2,
     })
@@ -97,6 +101,17 @@ function AddLocationsPage() {
             required
           ></Form.Control>
         </Form.Group>
+        <Form.Group controlId="formBasicDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            placeholder="Enter description"
+            onChange={(e: any) => setDescription(e.target.value)}
+            className="textarea"
+            required
+          ></Form.Control>
+        </Form.Group>
         <div className="form-group">
           <Button type="submit" className="btn btnpos">
             Save
@@ -108,4 +123,4 @@ function AddLocationsPage() {
   );
 }
 
-export default AddLocationsPage;
+export default AddLoadoutPage;

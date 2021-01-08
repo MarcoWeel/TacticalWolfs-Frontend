@@ -41,9 +41,14 @@ const NavbarComponent = ({ keycloak, keycloakInitialized }) => {
       )}
       {keycloak && keycloak.authenticated && (
         <Nav>
-          <Nav.Link onClick={() => keycloak.logout()}>
-            Logout ({keycloak.tokenParsed.preferred_username})
+          <Nav.Link onClick={() => keycloak.accountManagement()}>
+            Edit account ({keycloak.tokenParsed.preferred_username})
           </Nav.Link>
+        </Nav>
+      )}
+      {keycloak && keycloak.authenticated && (
+        <Nav>
+          <Nav.Link onClick={() => keycloak.logout()}>Logout</Nav.Link>
         </Nav>
       )}
     </Navbar>

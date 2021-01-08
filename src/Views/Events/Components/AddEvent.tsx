@@ -3,31 +3,42 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { useAxiosGet } from "../../../Hooks/HttpRequest_Protected";
+import { useAxiosGet } from "../../../Hooks/HttpRequest";
 import keycloak from "../../../Keycloak";
 
 function AddEventPage() {
   const [location, setLocation] = useState("");
+  const [locationURL, setLocationURL] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [submitMessage, setSubmitMessage] = useState(<div></div>);
+
+  const handleOnChange = (event: any) => {
+    setLocation(event.target.options[event.selectedIndex].text);
+    setLocationURL(event.target.value);
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const header =
       keycloak.token != null
-        ? { Authorization: `Bearer ${keycloak.token}` }
+        ? {
+            Authorization: `Bearer ${keycloak.token}`,
+            "Content-Type": "application/json",
+          }
         : "";
-    var bodyFormData = new FormData();
-    bodyFormData.append("Event.Location", location);
-    bodyFormData.append("Event.Name", name);
-    bodyFormData.append("Event.Date", date);
+    const Event = {
+      location: location,
+      locationUrl: locationURL,
+      name: name,
+      dateTime: date,
+    };
+    console.log(Event);
     axios({
       method: "post",
-      url: "http://84.86.167.197:5010/events/",
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data", header },
+      url: "http://84.86.167.197:5014/events/",
+      data: Event,
+      headers: header,
     })
       .then((res) => {
         console.log(res);
@@ -43,19 +54,25 @@ function AddEventPage() {
       });
   };
 
-  const url = "http://84.86.167.197:5010/events/location";
+  const url = "http://84.86.167.197:5014/events/location";
   let Location = useAxiosGet(url);
-
-  const [dropDownValue, setdropDownValue] = useState("Loading");
-  const [isLoading, setisLoading] = useState(true);
 
   let Locations = <option>loading</option>;
   if (Location.data) {
-    if (isLoading == true) {
-      setdropDownValue(Location.data[0].name);
-      setisLoading(false);
+    if (Location.data.length > 0) {
+      Locations = Location.data.map((item) => (
+        <option value={item.fileLocation}>{item.name}</option>
+      ));
     }
-    Locations = Location.data.map((item) => <option>{item.name}</option>);
+  }
+
+  if (Location.data) {
+    if (Location.data.length > 0) {
+      if (location == "") {
+        setLocation(Location.data[0].name);
+        setLocationURL(Location.data[0].fileLocation);
+      }
+    }
   }
 
   return (
@@ -73,11 +90,7 @@ function AddEventPage() {
         </Form.Group>
         <Form.Group controlId="FormBasicLocation">
           <Form.Label>Location</Form.Label>
-          <Form.Control
-            as="select"
-            onChange={(e: any) => setLocation(e.target.value)}
-            required
-          >
+          <Form.Control as="select" onChange={handleOnChange} required>
             {Locations}
           </Form.Control>
         </Form.Group>

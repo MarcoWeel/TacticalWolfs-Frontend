@@ -1,14 +1,26 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useAxiosGet } from "../../Hooks/HttpRequest_Protected";
 
 function EventsPage() {
-  let url = "http://localhost:5006/locations";
-  let Event = useAxiosGet(url);
-  let Events;
+  const url = "http://84.86.167.197:5014/events/";
+  let EventsData = useAxiosGet(url);
 
-  //Events = Events.data.map((item) => <div>{item.name}</div>);
-  return <div>Events</div>;
+  let Events = <option>loading</option>;
+  if (EventsData.data) {
+    if (EventsData.data.length > 0) {
+      console.log(EventsData.data);
+      Events = EventsData.data.map((item) => (
+        <div>
+          <div>{item.name}</div>
+          <div>{item.dateTime.split("T")[0]}</div>
+          <div>{item.location}</div>
+          <img src={item.locationUrl}></img>
+        </div>
+      ));
+    }
+  }
+
+  return <div>{Events}</div>;
 }
 
 export default EventsPage;

@@ -13,9 +13,11 @@ function MemberPage() {
         <li>
           <a href="/event/location/create">Add location </a>
         </li>
-        <a href="/">Create Loadout </a>
         <li>
-          <a href="/">My Loadout </a>
+          <a href="/loadout/create">Create Loadout </a>
+        </li>
+        <li>
+          <a href="/loadout">My Loadout </a>
         </li>
       </ul>
     </div>

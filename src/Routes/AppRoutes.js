@@ -3,7 +3,6 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "../Utilities/PrivateRoute";
 import PostsPage from "../Views/Posts/Posts";
-import DashboardEvents from "../Views/Events/Components/DashboardEvents";
 import NavbarComponent from "../Views/Components/NavbarComponent";
 import Eventspage from "../Views/Events/Events";
 import AddEventPage from "../Views/Events/Components/AddEvent";
@@ -12,6 +11,9 @@ import CreatePostsPage from "../Views/Posts/Components/CreatePosts";
 import AdminPage from "../Views/Admin/Admin";
 import MemberPage from "../Views/Admin/Member/Components/Member";
 import DashboardPage from "../Views/Components/Dashboard";
+import AddLoadoutPage from "../Views/Loudout/Components/CreateLoadout";
+import MembersPage from "../Views/Loudout/Members";
+import LoadoutPage from "../Views/Loudout/Loadout";
 
 export const AppRouter = () => {
   const { initialized } = useKeycloak();
@@ -23,18 +25,25 @@ export const AppRouter = () => {
       <NavbarComponent />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={DashboardEvents} />
+          <Route exact path="/" component={DashboardPage} />
           <Route exact path="/events" component={Eventspage} />
           <Route exact path="/posts" component={PostsPage} />
+          <Route exact path="/members" component={MembersPage} />
+          <Route exact path="/loadout/:id" component={LoadoutPage} />
           <PrivateRoute
             roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
             path="/event/create"
-            component={DashboardPage}
+            component={AddEventPage}
           />
           <PrivateRoute
             roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
             path="/event/location/create"
             component={AddLocationsPage}
+          />
+          <PrivateRoute
+            roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
+            path="/loadout/create"
+            component={AddLoadoutPage}
           />
           <PrivateRoute
             roles={["ROLE_ADMIN", "ROLE_MEMBER"]}

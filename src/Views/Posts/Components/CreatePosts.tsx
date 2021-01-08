@@ -1,30 +1,75 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import keycloak from "../../../Keycloak";
 
 function CreatePostPage() {
-  const [id, setId] = useState("");
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState();
-  const [likeId, setLikeId] = useState();
+  const [URL, setURL] = useState("");
   const [submitMessage, setSubmitMessage] = useState(<div></div>);
+
+  const header1 =
+    keycloak.token != null
+      ? {
+          Authorization: `Bearer ${keycloak.token}`,
+          "Content-Type": "multipart/form-data",
+        }
+      : "";
+  const header2 =
+    keycloak.token != null
+      ? {
+          Authorization: `Bearer ${keycloak.token}`,
+          "Content-Type": "application/json",
+        }
+      : "";
+
+  const HandleChange = (event: any) => {
+    if (event.target != undefined) {
+      setImage(event.target.files[0]);
+      var s = event.target.files[0].name;
+      var filename = "http://84.86.167.197:9010/tacticalwolves/" + s;
+      console.log(filename);
+      setURL(filename);
+    }
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     var bodyFormData = new FormData();
-    bodyFormData.append("Event.Id", id);
-    bodyFormData.append("Event.Description", description);
-    bodyFormData.append("Event.Title", title);
-    bodyFormData.append("File", image!);
+    bodyFormData.append("file", image);
     axios({
       method: "post",
-      url: "http://84.86.167.197:5010/posts/",
+      url: "http://84.86.167.197:5016/posts/files",
       data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: header1,
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setSubmitMessage(<div className="succes">Succes</div>);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        console.log(error);
+        setSubmitMessage(
+          <div className="unsuccesfull">Unsuccesfull try again later</div>
+        );
+      });
+
+    const Post = {
+      title: title,
+      fileURL: URL,
+      description: description,
+    };
+
+    axios({
+      method: "post",
+      url: "http://84.86.167.197:5016/posts",
+      data: Post,
+      headers: header2,
     })
       .then((res) => {
         console.log(res);
@@ -44,7 +89,7 @@ function CreatePostPage() {
       <Form onSubmit={(e: any) => handleSubmit(e)}>
         <Form.Label>Image</Form.Label>
         <Form.Group className="filearea" controlId="formBasicImage">
-          <Form.File onChange={(e: any) => setImage(e.target.files[0])} />
+          <Form.File onChange={(e: any) => HandleChange(e)} />
         </Form.Group>
         <Form.Group controlId="formBasicTitle">
           <Form.Label>Title</Form.Label>
@@ -56,7 +101,6 @@ function CreatePostPage() {
             required
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="formBasicDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
@@ -64,16 +108,6 @@ function CreatePostPage() {
             rows={3}
             placeholder="Enter description"
             onChange={(e: any) => setDescription(e.target.value)}
-            className="textarea"
-            required
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicWidth">
-          <Form.Control
-            type="number"
-            placeholder="Enter width"
-            onChange={(e: any) => setLikeId(e.target.value)}
             className="textarea"
             required
           ></Form.Control>
