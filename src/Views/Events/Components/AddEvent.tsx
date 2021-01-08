@@ -25,7 +25,7 @@ function AddEventPage() {
     bodyFormData.append("Event.Date", date);
     axios({
       method: "post",
-      url: "http://localhost:5006/posts/",
+      url: "http://84.86.167.197:5010/events/",
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data", header },
     })
@@ -43,7 +43,7 @@ function AddEventPage() {
       });
   };
 
-  const url = "http://localhost:5014/events";
+  const url = "http://84.86.167.197:5010/events/location";
   let Location = useAxiosGet(url);
 
   const [dropDownValue, setdropDownValue] = useState("Loading");
@@ -81,7 +81,7 @@ function AddEventPage() {
             {Locations}
           </Form.Control>
         </Form.Group>
-        <a href="/event/location">Add new location </a>
+        <a href="/event/location/create">Add new location </a>
         <Form.Group controlId="formBasicDate">
           <Form.Label>Location</Form.Label>
           <Form.Control

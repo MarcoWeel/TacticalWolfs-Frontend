@@ -22,7 +22,7 @@ function CreatePostPage() {
     bodyFormData.append("File", image!);
     axios({
       method: "post",
-      url: "http://localhost:5006/posts/",
+      url: "http://84.86.167.197:5010/posts/",
       data: bodyFormData,
       headers: { "Content-Type": "multipart/form-data" },
     })

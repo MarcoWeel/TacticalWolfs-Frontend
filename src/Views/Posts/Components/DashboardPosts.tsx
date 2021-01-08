@@ -4,7 +4,7 @@ import { useAxiosGet } from "../../../Hooks/HttpRequest_Protected";
 import "../Posts.css";
 
 function DashboardPostsPage() {
-  let url = "http://localhost:5014/events";
+  let url = "http://84.86.167.197:5010/posts";
   let Post = useAxiosGet(url);
   let PostOne = <div>No Events</div>;
   let PostTwo;
@@ -14,7 +14,7 @@ function DashboardPostsPage() {
       <div>
         {Post.data[0].name}
         {Post.data[0].location}
-        {/* {Event.data[0].URL} */}
+        <img src={Post.data[0].locationUrl}></img>
       </div>
     );
     if (Post.data.length >= 2) {
@@ -22,7 +22,7 @@ function DashboardPostsPage() {
         <div>
           {Post.data[1].name}
           {Post.data[1].location}
-          {/* {Event.data[1].URL} */}
+          <img src={Post.data[1].locationUrl}></img>
         </div>
       );
     } else {

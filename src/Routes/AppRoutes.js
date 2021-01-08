@@ -1,7 +1,6 @@
 import { useKeycloak } from "@react-keycloak/web";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Menu from "../Views/Components/Menu";
 import { PrivateRoute } from "../Utilities/PrivateRoute";
 import PostsPage from "../Views/Posts/Posts";
 import DashboardEvents from "../Views/Events/Components/DashboardEvents";
@@ -9,11 +8,15 @@ import NavbarComponent from "../Views/Components/NavbarComponent";
 import Eventspage from "../Views/Events/Events";
 import AddEventPage from "../Views/Events/Components/AddEvent";
 import AddLocationsPage from "../Views/Events/Components/AddLocation";
+import CreatePostsPage from "../Views/Posts/Components/CreatePosts";
+import AdminPage from "../Views/Admin/Admin";
+import MemberPage from "../Views/Admin/Member/Components/Member";
+import DashboardPage from "../Views/Components/Dashboard";
 
 export const AppRouter = () => {
   const { initialized } = useKeycloak();
   if (!initialized) {
-    return <h3>Loading ... !!!</h3>;
+    return <h3>Loading ...</h3>;
   }
   return (
     <>
@@ -22,20 +25,31 @@ export const AppRouter = () => {
         <Switch>
           <Route exact path="/" component={DashboardEvents} />
           <Route exact path="/events" component={Eventspage} />
+          <Route exact path="/posts" component={PostsPage} />
           <PrivateRoute
-            roles={["ROLE_ADMIN", "ROLE_USER"]}
-            path="/protected"
-            component={PostsPage}
-          />
-          <PrivateRoute
-            roles={["ROLE_ADMIN"]}
+            roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
             path="/event/create"
-            component={AddEventPage}
+            component={DashboardPage}
+          />
+          <PrivateRoute
+            roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
+            path="/event/location/create"
+            component={AddLocationsPage}
+          />
+          <PrivateRoute
+            roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
+            path="/posts/create"
+            component={CreatePostsPage}
           />
           <PrivateRoute
             roles={["ROLE_ADMIN"]}
-            path="/event/location"
-            component={AddLocationsPage}
+            path="/admin"
+            component={AdminPage}
+          />
+          <PrivateRoute
+            roles={["ROLE_MEMBER"]}
+            path="/member"
+            component={MemberPage}
           />
         </Switch>
       </BrowserRouter>

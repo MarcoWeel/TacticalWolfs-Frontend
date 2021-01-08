@@ -7,14 +7,33 @@ import Nav from "react-bootstrap/Nav";
 import { withKeycloak } from "@react-keycloak/web";
 
 const NavbarComponent = ({ keycloak, keycloakInitialized }) => {
+  let isAdmin = false;
+  let isMember = false;
+  if (keycloak.hasRealmRole("ROLE_ADMIN")) {
+    isAdmin = true;
+  } else if (keycloak.hasRealmRole("ROLE_MEMBER")) {
+    isMember = true;
+  }
   return (
     <Navbar bg="dark" variant="dark" sticky="top">
       <Navbar.Brand href="/">TacticalWolves</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="#home">Posts</Nav.Link>
-        <Nav.Link href="/protected">Events</Nav.Link>
-        <Nav.Link href="/event/create">Members</Nav.Link>
+        <Nav.Link href="/posts">Posts</Nav.Link>
+        <Nav.Link href="/events">Events</Nav.Link>
+        <Nav.Link href="/members">Members</Nav.Link>
       </Nav>
+      {isAdmin && (
+        <Nav>
+          <Nav.Link href="/admin">AdminControl</Nav.Link>
+        </Nav>
+      )}
+
+      {isMember && (
+        <Nav>
+          <Nav.Link href="/member">Control</Nav.Link>
+        </Nav>
+      )}
+
       {keycloak && !keycloak.authenticated && (
         <Nav>
           <Nav.Link onClick={() => keycloak.login()}>Login</Nav.Link>

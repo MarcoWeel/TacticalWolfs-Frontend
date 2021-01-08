@@ -26,7 +26,7 @@ function AddLocationsPage() {
     bodyFormData.append("file", image);
     axios({
       method: "post",
-      url: "http://localhost:5014/events/files",
+      url: "http://84.86.167.197:5010/events/files",
       data: bodyFormData,
       headers: header,
     })
@@ -52,7 +52,7 @@ function AddLocationsPage() {
     };
     axios({
       method: "post",
-      url: "http://localhost:5014/events/location",
+      url: "http://84.86.167.197:5010/events/location",
       data: EventLocation,
       headers: headers,
     })
