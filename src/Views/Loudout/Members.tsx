@@ -13,6 +13,7 @@ function MembersPage() {
       Members = Member.data.map((item) => (
         <li>
           <a>{item.username}</a>
+          <br />
           <a href={"/loadout/" + item.id}>View Loadout</a>
         </li>
       ));
