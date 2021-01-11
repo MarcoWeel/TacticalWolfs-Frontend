@@ -31,7 +31,7 @@ function DashboardPostsPage() {
     }
   }
   return (
-    <div>
+    <div className="col-4">
       <div>Posts</div>
       <div>{PostOne}</div>
       <div>{PostTwo}</div>

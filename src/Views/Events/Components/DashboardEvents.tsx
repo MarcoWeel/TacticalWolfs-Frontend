@@ -32,7 +32,7 @@ function DashboardEventsPage() {
     }
   }
   return (
-    <div>
+    <div className="col-4">
       <div>Events</div>
       <div>{EventOne}</div>
       <div>{EventTwo}</div>

@@ -32,7 +32,7 @@ function DashboardLoadoutsPage() {
     }
   }
   return (
-    <div>
+    <div className="col-4">
       <div>Loadouts</div>
       <div>{LoadoutOne}</div>
       <div>{LoadoutTwo}</div>
