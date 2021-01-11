@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import keycloak from "../../../Keycloak";
+import "../Posts.css";
 
 function CreatePostPage() {
   const [description, setDescription] = useState("");
@@ -85,7 +86,8 @@ function CreatePostPage() {
       });
   };
   return (
-    <div>
+    <div className="PostBox">
+      <h3>Create post</h3>
       <Form onSubmit={(e: any) => handleSubmit(e)}>
         <Form.Label>Image</Form.Label>
         <Form.Group className="filearea" controlId="formBasicImage">

@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import keycloak from "../../../Keycloak";
+import "../Loadout.css";
 
 function AddLoadoutPage() {
   const [name, setName] = useState("");
@@ -86,7 +87,8 @@ function AddLoadoutPage() {
   };
 
   return (
-    <div>
+    <div className="PostBox">
+      <h3>Create Loadout</h3>
       <Form onSubmit={(e: any) => handleSubmit(e)}>
         <Form.Group className="filearea" controlId="formBasicImage">
           <Form.File onChange={(e: any) => HandleChange(e)} />

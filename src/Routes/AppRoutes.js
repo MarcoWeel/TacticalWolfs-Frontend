@@ -42,7 +42,7 @@ export const AppRouter = () => {
           />
           <PrivateRoute
             roles={["ROLE_ADMIN", "ROLE_MEMBER"]}
-            path="/loadout/create"
+            path="/loadout/create/form"
             component={AddLoadoutPage}
           />
           <PrivateRoute

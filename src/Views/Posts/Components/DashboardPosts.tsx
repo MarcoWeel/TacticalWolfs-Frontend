@@ -14,15 +14,15 @@ function DashboardPostsPage() {
         <div>
           {sortedPosts[0].title}
           {sortedPosts[0].description}
-          <img src={sortedPosts[0].fileURL}></img>
+          <img className="Image" src={sortedPosts[0].fileURL}></img>
         </div>
       );
       if (Post.data.length >= 2) {
         PostTwo = (
           <div>
-            {sortedPosts[1].title}
-            {sortedPosts[1].location}
-            <img src={sortedPosts[1].fileURL}></img>
+            {sortedPosts[1].title} <br />
+            {sortedPosts[1].location} <br />
+            <img className="Image" src={sortedPosts[1].fileURL}></img>
           </div>
         );
       } else {

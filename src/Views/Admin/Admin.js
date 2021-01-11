@@ -14,7 +14,7 @@ function AdminPage() {
           <a href="/event/location/create">Add location </a>
         </li>
         <li>
-          <a href="/loadout/create">Create Loadout </a>
+          <a href="/loadout/create/form">Create Loadout </a>
         </li>
         <li>
           <a href="/loadout">My Loadout </a>

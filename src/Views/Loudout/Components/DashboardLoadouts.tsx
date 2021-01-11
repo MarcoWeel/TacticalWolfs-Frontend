@@ -13,17 +13,17 @@ function DashboardLoadoutsPage() {
       let sortedLoadouts = Loadout.data.sort((a, b) => b.dateTime - a.dateTime);
       LoadoutOne = (
         <div>
-          {sortedLoadouts[0].name}
-          {sortedLoadouts[0].location}
-          <img src={sortedLoadouts[0].fileURL}></img>
+          {sortedLoadouts[0].name} <br />
+          {sortedLoadouts[0].location} <br />
+          <img className="Image" src={sortedLoadouts[0].fileURL}></img>
         </div>
       );
       if (Loadout.data.length >= 2) {
         LoadoutTwo = (
           <div>
-            {sortedLoadouts[1].name}
-            {sortedLoadouts[1].location}
-            <img src={sortedLoadouts[1].fileURL}></img>
+            {sortedLoadouts[1].name} <br />
+            {sortedLoadouts[1].location} <br />
+            <img className="Image" src={sortedLoadouts[1].fileURL}></img>
           </div>
         );
       } else {

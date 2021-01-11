@@ -13,17 +13,17 @@ function DashboardEventsPage() {
       let sortedEvents = Event.data.sort((a, b) => b.dateTime - a.dateTime);
       EventOne = (
         <div>
-          {sortedEvents[0].name}
-          {sortedEvents[0].location}
-          <img src={sortedEvents[0].locationUrl}></img>
+          {sortedEvents[0].name} <br />
+          {sortedEvents[0].location} <br />
+          <img className="Image" src={sortedEvents[0].locationUrl}></img>
         </div>
       );
       if (Event.data.length >= 2) {
         EventTwo = (
           <div>
-            {sortedEvents[1].name}
-            {sortedEvents[1].location}
-            <img src={sortedEvents[1].locationUrl}></img>
+            {sortedEvents[1].name} <br />
+            {sortedEvents[1].location} <br />
+            <img className="Image" src={sortedEvents[1].locationUrl}></img>
           </div>
         );
       } else {

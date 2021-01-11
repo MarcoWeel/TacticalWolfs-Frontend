@@ -8,7 +8,7 @@ function DashboardPage() {
   return (
     <div className="container">
       <div className="row">
-        <DashboardEvents className="col-4" />
+        <DashboardEvents />
         <DashboardPosts className="col-4" />
         <DashboardLoadouts className="col-4" />
       </div>

@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAxiosGet } from "../../../Hooks/HttpRequest";
 import keycloak from "../../../Keycloak";
+import "../Events.css";
 
 function AddEventPage() {
   const [location, setLocation] = useState("");
@@ -76,7 +77,8 @@ function AddEventPage() {
   }
 
   return (
-    <div>
+    <div className="PostBox">
+      <h3>Create event</h3>
       <Form onSubmit={(e: any) => handleSubmit(e)}>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
